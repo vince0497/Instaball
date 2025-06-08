@@ -1,3 +1,4 @@
+import Layout from '@/components/layout';
 import *  as React from 'react'
 
 interface IProfileProps{
@@ -6,7 +7,14 @@ interface IProfileProps{
 
 const Profile:React.FunctionComponent<IProfileProps> = (props) => {
 
-    return <div>Profile pare</div>;
+    return (
+        <Layout>
+            <div>
+                Propayl
+            </div>
+        </Layout>
+    );
 };
+
 
 export default Profile;
