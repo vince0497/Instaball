@@ -27,3 +27,13 @@ export interface PhotoMeta{
     cdnUrl: string,
     uuid: string
 }
+
+export interface DocumentResponse{
+    id?: string,
+    caption?:string;
+    photos?: PhotoMeta[];
+    likes?: number;
+    userLikes?: [];
+    userId?: string | null;
+    date?: Date;
+}
