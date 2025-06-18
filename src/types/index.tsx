@@ -1,4 +1,5 @@
 import { OutputFileEntry } from "@uploadcare/react-uploader";
+import { User } from "firebase/auth";
 
 export interface UserSignIn {
     email: string,
@@ -36,4 +37,25 @@ export interface DocumentResponse{
     userLikes?: [];
     userId?: string | null;
     date?: Date;
+}
+
+export interface ProfileInfo{
+    user?: User;
+    displayName?: string;
+    photoURL?: string;
+}
+
+export interface UserProfile{
+    userId?:string;
+    displayName?:string;
+    photoURL?: string;
+    userBio?: string;
+}
+
+export interface ProfileResponse{
+    id?: string;
+    userId?:string;
+    displayName?:string;
+    photoURL?: string;
+    userBio?: string;
 }

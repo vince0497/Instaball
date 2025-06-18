@@ -13,6 +13,7 @@ const MyPhotos : React.FunctionComponent<IMyPhotosProps> = (props) => {
     
     const {user} = useUserAuth();
    const [data,setData] = React.useState<DocumentResponse[]>([]); 
+   
   const getAllPost = async(id: string) => {
     try{
         const querySnapshot = await getPostByUserId(id);

@@ -52,7 +52,7 @@ const navItems = [
     },
     {
         name: "Profile",
-        link: "#",
+        link: "/profile",
         icon: profilecon
     }
 
