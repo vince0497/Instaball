@@ -11,6 +11,7 @@ type FileUploaderProps = {
   files: OutputFileEntry[];
   onChange: (files: OutputFileEntry[]) => void;
   theme: 'light' | 'dark';
+  preview: boolean;
 }
 
 
@@ -38,7 +39,7 @@ const localeDefinitionOverride = {
 
 
 
-export default function FileUploader({ files, uploaderClassName, onChange, theme }: FileUploaderProps) {
+export default function FileUploader({ files, uploaderClassName, onChange, theme,preview }: FileUploaderProps) {
   const [uploadedFiles, setUploadedFiles] = useState<OutputFileEntry<'success'>[]>([]);
   const ctxProviderRef = useRef<InstanceType<UploadCtxProvider>>(null);
  
@@ -65,8 +66,7 @@ const resetUploaderState = () => ctxProviderRef.current?.uploadCollection.clearA
   const handleChangeEvent = (file) => {
     console.log("Hellooo")
     setUploadedFiles([...file.allEntries.filter(f => f.status === 'success')] as OutputFileEntry<'success'>[]);
-   //onChange([...file.allEntries.filter(f => f.status === 'success') as OutputFileEntry<'success'>[]])
-    const newEntry = [...files,...file.allEntries.filter(f => f.status === 'success') as OutputFileEntry<'success'>[]]
+  const newEntry = [...files,...file.allEntries.filter(f => f.status === 'success') as OutputFileEntry<'success'>[]]
     
     const deduplicatedArray = Array.from(
   new Map(newEntry.map(item => [item.uuid, item])).values()
@@ -83,7 +83,7 @@ const resetUploaderState = () => ctxProviderRef.current?.uploadCollection.clearA
     <div className={st.root}>
       <FileUploaderRegular
         imgOnly
-        multiple
+        multiple={preview}
         removeCopyright
         confirmUpload={false}
         localeDefinitionOverride={localeDefinitionOverride}
@@ -95,10 +95,9 @@ const resetUploaderState = () => ctxProviderRef.current?.uploadCollection.clearA
         pubkey="37dce447f5afa3cf8d02"
         
         className={cs(uploaderClassName)}
-        // classNameUploader={cs(cssOverrides.fileUploader, { [st.darkModeEnabled]: theme === 'dark' })}
       />
-
-      <div className={st.previews}>
+      {/* if preview is true+ */}
+      {preview ? (<div className={st.previews}>
         {files.map((file) => (
           <div key={file.uuid} className={st.preview}>
             <img
@@ -118,7 +117,10 @@ const resetUploaderState = () => ctxProviderRef.current?.uploadCollection.clearA
             </button>
           </div>
         ))}
-      </div>
+      </div> ) :  <div></div>}
+      
+
+      
     </div>
   );
 }

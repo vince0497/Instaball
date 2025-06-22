@@ -6,6 +6,8 @@ import image1 from "@/assets/images/gr.jpg";
 import { Divide, Edit2Icon, HeartIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getPostByUserId } from '@/repository/post.service';
+import { useNavigate } from 'react-router-dom';
+import { getUserProfile } from '@/repository/user.service';
 
 interface IProfileProps{
 
@@ -14,10 +16,11 @@ interface IProfileProps{
 const Profile:React.FunctionComponent<IProfileProps> = (props) => {
 
     const {user} = useUserAuth();
+    const navigate = useNavigate();
    
     const initialUserInfo: ProfileResponse = {
         id: "",
-        userId: "",
+        userId: user?.uid ? user.uid : "",
         userBio: "Please update your bio...",
         photoURL: user?.photoURL ? user.photoURL : "",
         displayName: user?.displayName ? user.displayName : "Guest_User"
@@ -48,13 +51,20 @@ const Profile:React.FunctionComponent<IProfileProps> = (props) => {
             console.log("Error ",error)
         }
       }//getall post end
+
+     const getUserProfileInfo = async(userId: string) => {
+              const data: ProfileResponse = await getUserProfile(userId) || {};
+
+              if(data){
+                
+                //console.log("dddddssssataaa ",data);
+                setUserInfo(data);
+              }
+    }//end of getUserProfile
+      
     
     
-      React.useEffect(() => {
-        if(user!= null){
-            getAllPost(user.uid);
-        }
-      },[]);
+
 
     const renderPosts = () =>{
     return data.map((item) => {
@@ -78,10 +88,20 @@ const Profile:React.FunctionComponent<IProfileProps> = (props) => {
 
   const editProfile = () => {
 
+  
+    navigate("/edit-profile",{state: userInfo});
 
   }//end of edit profile
 
-  console.log(userInfo.photoURL)
+    React.useEffect(() => {
+        if(user!= null){
+            getAllPost(user.uid);
+           
+            getUserProfileInfo(user.uid);
+        }
+      },[]);
+
+
     return (
         <Layout>
             <div className="flex justify-center">

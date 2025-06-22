@@ -31,7 +31,7 @@ const CreatePost:React.FunctionComponent<ICreatePostProps> = (props) => {
     //MOCK_DATA.files
     const navigate = useNavigate();
     const [fileEntry, setFileEntry] = useState<FormType['files']>([]);
-
+    
 
     const [theme, setTheme] = useState<'light' | 'dark'>(document.body.classList.contains('theme--dark') ? 'dark' : 'light');
 
@@ -89,9 +89,7 @@ const CreatePost:React.FunctionComponent<ICreatePostProps> = (props) => {
 
                     <div className="flex flex-col"></div>   
                     <Label className="mb-4" htmlFor="photo">Photos</Label>    
-                    {/* <FileUploader 
-                    fileEntry={fileEntry} onChange={setFileEntry} />     */}
-
+               
                     <div >
                     
                         <FileUploader
@@ -99,6 +97,7 @@ const CreatePost:React.FunctionComponent<ICreatePostProps> = (props) => {
                         files={fileEntry}
                         onChange={setFileEntry}
                         theme={theme}
+                        preview={true}
                         />
                      </div>
                 </div>
