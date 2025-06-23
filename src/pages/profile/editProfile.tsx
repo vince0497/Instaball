@@ -35,13 +35,11 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = (props) => {
 
     const [fileEntry, setFileEntry] = React.useState<FormType['files']>([]);
     const [theme, setTheme] = React.useState<'light' | 'dark'>(document.body.classList.contains('theme--dark') ? 'dark' : 'light');
-    console.log("The file entry is : ",fileEntry);
-
+  
 
      const updateProfile = async(e: React.MouseEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("----------->");
-        console.log(data);
+      
         try {
             if(id){ 
                 const response = await updateUserProfile(id,data);
@@ -62,9 +60,6 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = (props) => {
   
      React.useEffect(()=>{
         console.log("Use efffect ",data);
-     
-    
-        
         if(fileEntry.length > 0){
             setData({...data, photoURL: fileEntry[0].cdnUrl || "" });
         }

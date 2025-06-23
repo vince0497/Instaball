@@ -53,11 +53,11 @@ const Profile:React.FunctionComponent<IProfileProps> = (props) => {
       }//getall post end
 
      const getUserProfileInfo = async(userId: string) => {
+                console.log("-------> ",userId);
               const data: ProfileResponse = await getUserProfile(userId) || {};
 
-              if(data){
-                
-                //console.log("dddddssssataaa ",data);
+              if(data.userId){   
+                console.log("dddddssssataaa ",data);
                 setUserInfo(data);
               }
     }//end of getUserProfile

@@ -42,13 +42,13 @@ export const getUserProfile = async(userId: string) => {
 
 export const updateUserProfile = async(id: string, user: UserProfile) => {
 
-     //const docRef = doc(db, COLLECTION_NAME, id);
-     console.log("meow");
-     console.log(id)
-     console.log(user)
-    //  return updateDoc(docRef, {
-    //     user
-    // });
+     const docRef = doc(db, COLLECTION_NAME, id);
+     console.log("==================");
+    console.log(docRef);
+    console.log(user);
+     return updateDoc(docRef, {
+        ...user
+    });
 }//end of update user profile
 
 
