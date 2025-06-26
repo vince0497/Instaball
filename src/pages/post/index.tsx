@@ -48,20 +48,20 @@ const CreatePost:React.FunctionComponent<ICreatePostProps> = (props) => {
          e.preventDefault();
          console.log("Handle submit ",fileEntry);
          console.log("The create post is ",post);
-        //  const photoMeta: PhotoMeta[] = fileEntry.map((file) => {
-        //     return {cdnUrl: file.cdnUrl, uuid: file.uuid};
-        //  });
+
 
         const photoMeta: PhotoMeta[] = (fileEntry as { cdnUrl: string; uuid: string }[]).map((file) => ({
-            cdnUrl: file.cdnUrl,
-            uuid: file.uuid,
+            cdnUrl: file.cdnUrl!,
+            uuid: file.uuid!,
          }));
 
          if(user != null){
             const newPost: Post = {
             ...post,
-            userId: user?.uid || null,
+            userId: user?.uid,
             photos: photoMeta,
+            username: user.displayName!,
+            photoURL: user.photoURL!,
             };
 
             console.log("The new post ",newPost);

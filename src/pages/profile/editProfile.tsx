@@ -11,8 +11,9 @@ import st from './FormView.module.scss';
 import { Input } from "@/components/ui/input";
 import Layout from "@/components/layout";
 import { createUserProfile, updateUserProfile } from "@/repository/user.service";
-import { ProfileResponse } from "@/types";
+import { ProfileInfo, ProfileResponse } from "@/types";
 import { setUserId } from "firebase/analytics";
+import { useUserAuth } from "@/context/userAuthContext";
 interface IEditProfileProps{}
 
 type FormType = {
@@ -21,6 +22,7 @@ type FormType = {
 }
 
 const EditProfile: React.FunctionComponent<IEditProfileProps> = (props) => {
+    const {user, updateProfileInfo} = useUserAuth(); 
     const location = useLocation();
     const navigate = useNavigate();
     const {id, userId, userBio, displayName, photoURL} = location.state;
@@ -49,6 +51,13 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = (props) => {
                 console.log("ddattttttt -> ",data)
                 console.log("Create user profile ",response);
             }
+            const profileInfo: ProfileInfo = {
+                user:user!,
+                displayName: data.displayName,
+                photoURL: data.photoURL,
+            }
+            updateProfileInfo(profileInfo);
+            updateUserInfoOnPost(profileInfo);
             navigate("/profile");
         } catch (error) {
             console.log("updateProfile : ",error);

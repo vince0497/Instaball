@@ -1,8 +1,9 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, User } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, User } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import {auth} from "../firebaseConfig";
 // import { GoogleAuthProvider } from "firebase/auth/web-extension";
 import {  GoogleAuthProvider } from "firebase/auth";
+import { ProfileInfo } from "@/types";
 
 interface IUserAuthProviderProps{
     children: React.ReactNode
@@ -13,6 +14,7 @@ type AuthContextData = {
     signUp: typeof signUp;
     logOut: typeof logOut;
     googleSignIn: typeof googleSignIn;
+    updateProfileInfo: typeof updateProfile;
 }
 
 
@@ -33,13 +35,22 @@ const googleSignIn = () => {
     return signInWithPopup(auth, googleAuthProvider);
 }
 
+const updateProfileInfo = (profileInfo: ProfileInfo) => {
+    console.log("Profile is ",profileInfo);
+    return updateProfile(profileInfo.user!, {
+        displayName: profileInfo.displayName,
+        photoURL: profileInfo.photoURL
+    });
+}
+
 export const userAuthContext = createContext<AuthContextData>({
 
     user: null,
     logIn,
     signUp,
     logOut,
-    googleSignIn,
+    googleSignIn, 
+    updateProfileInfo,
 });
 
 export const UserAuthProvider: React.FunctionComponent<IUserAuthProviderProps> = ({children}) => {
@@ -64,6 +75,7 @@ export const UserAuthProvider: React.FunctionComponent<IUserAuthProviderProps> =
         signUp,
         logOut,
         googleSignIn,
+        updateProfileInfo,
     }
     return(
         <userAuthContext.Provider value={value}>

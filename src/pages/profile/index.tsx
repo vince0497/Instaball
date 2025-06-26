@@ -16,6 +16,7 @@ interface IProfileProps{
 const Profile:React.FunctionComponent<IProfileProps> = (props) => {
 
     const {user} = useUserAuth();
+    console.log("The logged user ",user);
     const navigate = useNavigate();
    
     const initialUserInfo: ProfileResponse = {
@@ -31,6 +32,8 @@ const Profile:React.FunctionComponent<IProfileProps> = (props) => {
 
       const getAllPost = async(id: string) => {
         try{
+
+            
             const querySnapshot = await getPostByUserId(id);
             const tempArr: DocumentResponse[]  = [];
             if(querySnapshot.size > 0){
@@ -95,13 +98,15 @@ const Profile:React.FunctionComponent<IProfileProps> = (props) => {
 
     React.useEffect(() => {
         if(user!= null){
+
+          
             getAllPost(user.uid);
            
             getUserProfileInfo(user.uid);
         }
       },[]);
 
-
+ 
     return (
         <Layout>
             <div className="flex justify-center">
