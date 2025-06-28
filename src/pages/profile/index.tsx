@@ -56,11 +56,8 @@ const Profile:React.FunctionComponent<IProfileProps> = (props) => {
       }//getall post end
 
      const getUserProfileInfo = async(userId: string) => {
-                console.log("-------> ",userId);
               const data: ProfileResponse = await getUserProfile(userId) || {};
-
               if(data.userId){   
-                console.log("dddddssssataaa ",data);
                 setUserInfo(data);
               }
     }//end of getUserProfile
@@ -124,7 +121,7 @@ const Profile:React.FunctionComponent<IProfileProps> = (props) => {
                             <div>
 
                                 <div className="text-xl ml-3">
-                                    {userInfo.displayName}
+                                    {userInfo.displayName ? userInfo.displayName : "Guest_User" }
                                 </div>
 
                                 <div className="text-xl ml-3">

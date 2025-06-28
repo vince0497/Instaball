@@ -14,6 +14,7 @@ import { createUserProfile, updateUserProfile } from "@/repository/user.service"
 import { ProfileInfo, ProfileResponse } from "@/types";
 import { setUserId } from "firebase/analytics";
 import { useUserAuth } from "@/context/userAuthContext";
+import { updateUserInfoOnPosts } from "@/repository/post.service";
 interface IEditProfileProps{}
 
 type FormType = {
@@ -57,7 +58,7 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = (props) => {
                 photoURL: data.photoURL,
             }
             updateProfileInfo(profileInfo);
-            updateUserInfoOnPost(profileInfo);
+            updateUserInfoOnPosts(profileInfo);
             navigate("/profile");
         } catch (error) {
             console.log("updateProfile : ",error);

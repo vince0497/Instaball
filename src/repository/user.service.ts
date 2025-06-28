@@ -29,12 +29,14 @@ export const getUserProfile = async(userId: string) => {
                 }
                  
             });
+            return tempData
         }else{
             console.log("No such user profile");
-            
-        }
+            return null;
+        }   
     } catch (error) {
         console.log("Error in get user profile "+error);
+ 
     }
     return tempData;
 } //end of getuserprofile

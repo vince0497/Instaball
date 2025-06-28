@@ -65,7 +65,12 @@ export const updateUserInfoOnPosts = async(profileInfo: ProfileInfo) => {
 
     if(querySnapshot > 0){
         querySnapshot.forEach((document) => {
-            const docRef = doc(db, COLLECTION_NAME, documentId)
+            const docRef = doc(db, COLLECTION_NAME, document.id);
+            updateDoc(docRef, {
+                username: profileInfo.displayName,
+                photoURL: profileInfo.photoURL,
+            });
+            
         });
     }else{
         console.log("User no post!");
