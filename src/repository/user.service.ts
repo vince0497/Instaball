@@ -54,4 +54,27 @@ export const updateUserProfile = async(id: string, user: UserProfile) => {
 }//end of update user profile
 
 
+export const getAllUsers = async(userId: string) => {
 
+    try {
+        const querySnapshot = await getDocs(collection(db,COLLECTION_NAME));
+        const tempArray: ProfileResponse[] = []; 
+        if(querySnapshot.size > 0){
+            querySnapshot.forEach((doc) => {
+                const userData = doc.data() as UserProfile;
+                const responseObj: ProfileResponse = {
+                    id: doc.id,
+                    ...userData,
+                }
+                tempArray.push(responseObj);
+            });
+            console.log("hooyyy ",userId,"------");
+            return tempArray.filter((item)=> item.userId != userId);
+        }else{
+            console.log("No such documents.");
+        }
+    } catch (error) {
+        console.log("Error in get all users ",error);
+    }
+
+}//end of get all users

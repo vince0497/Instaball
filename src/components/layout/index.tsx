@@ -16,7 +16,7 @@ const Layout: React.FunctionComponent<ILayoutProps> = ({children}) => {
                 children
             }</div>
             {/* fixed top-0 left-0 */}
-            <aside className="  lg:block bg-gray-800 top-0  right-0 z-40 fixed p-5">
+            <aside className="  h-full bg-gray-800  top-0 right-0 z-40 fixed p-5">
                 <UserList />
             </aside>
         </div>
